@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useParams} from "react-router";
 import { ButtonBackToHome } from '../components/ButtonBackToHome'
 
 const API_KEY = '4287ad07'
 
-export const Detail = () => {
+export const Detail = ({match}) => {
 
   const [state, setState] = useState({});
-
-  let { movieId } = useParams();
 
   const fetchMovie = ( id ) => {
     fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`)
@@ -19,8 +16,8 @@ export const Detail = () => {
   }
   
   useEffect(() => {
-     fetchMovie(movieId)
-   }, [movieId])
+     fetchMovie(match.params.movieId)
+   }, [match.params.movieId])
   
 
     const { Title, Poster, Actors, Metascore, Plot } = state
